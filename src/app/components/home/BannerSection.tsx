@@ -3,10 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 export default function BannerSection() {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -14,10 +14,11 @@ export default function BannerSection() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] } }
-  };
+    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  }; 
+
 
   return (
     <div className="relative overflow-hidden bg-neutral-50 dark:bg-neutral-900/50 pt-24 pb-32">
