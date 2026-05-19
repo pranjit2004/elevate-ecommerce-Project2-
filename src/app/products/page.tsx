@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
 
+
+
 // 1. Define the TypeScript Interface based on the Fake Store API response
 interface Product {
   id: number;
@@ -16,17 +18,64 @@ interface Product {
   };
 }
 
-// 2. Create the data fetching function
-async function getProducts(): Promise<Product[]> {
-  // This fetch runs completely on your Next.js server
-  const res = await fetch('https://fakestoreapi.com/products');
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    return []; // Safely return an empty array instead of crashing
+// 1. Create a bulletproof fallback array
+const fallbackProducts = [
+  {
+    id: 1,
+    title: "Premium Foldsack Backpack",
+    price: 109.95,
+    description: "Your perfect pack for everyday use and walks in the forest.",
+    category: "men's clothing",
+    image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+    rating: { rate: 3.9, count: 120 }
+  },
+  {
+    id: 2,
+    title: "Minimalist Casual Slim T-Shirt",
+    price: 22.3,
+    description: "Slim-fitting style, contrast raglan sleeve, henley placket.",
+    category: "men's clothing",
+    image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+    rating: { rate: 4.1, count: 259 }
+  },
+  {
+    id: 3,
+    title: "Essential Cotton Jacket",
+    price: 55.99,
+    description: "Great outerwear jackets for Spring/Autumn/Winter.",
+    category: "men's clothing",
+    image: "https://fakestoreapi.com/img/71li-ujtl-L._AC_UX679_.jpg",
+    rating: { rate: 4.7, count: 500 }
+  },
+  {
+    id: 4,
+    title: "Solid Gold Petite Micropave",
+    price: 168.00,
+    description: "Satisfaction Guaranteed. Return or exchange any order.",
+    category: "jewelery",
+    image: "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
+    rating: { rate: 3.9, count: 70 }
   }
+];
 
-  return res.json();
+// 2. The new robust fetch function
+async function getProducts() {
+  try {
+    // Adding { cache: 'no-store' } tells Next.js NOT to save the empty array forever!
+    const res = await fetch('https://fakestoreapi.com/products', { 
+      cache: 'no-store' 
+    });
+    
+    // If the API throws a tantrum, use our fallback data
+    if (!res.ok) {
+      return fallbackProducts;
+    }
+    
+    return res.json();
+  } catch (error) {
+    // If the API completely times out, use our fallback data
+    return fallbackProducts;
+  }
 }
 
 // 3. The Page Component MUST be async to await the data
@@ -50,7 +99,7 @@ export default async function ProductServerPage() {
       {/* Product Grid */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {products.map((product) => (
+          {products.map((product: Product) => (
             <Link 
               key={product.id} 
               href={`/products/${product.id}`}
