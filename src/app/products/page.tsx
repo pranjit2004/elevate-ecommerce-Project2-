@@ -22,29 +22,29 @@ interface Product {
 const fallbackProducts = [
   {
     id: 1,
-    title: "Premium Foldsack Backpack",
+    title: "Premium Canvas Backpack",
     price: 109.95,
     description: "Your perfect pack for everyday use and walks in the forest.",
     category: "men's clothing",
-    image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=800",
     rating: { rate: 3.9, count: 120 }
   },
   {
     id: 2,
-    title: "Minimalist Casual Slim T-Shirt",
+    title: "Minimalist Casual T-Shirt",
     price: 22.3,
-    description: "Slim-fitting style, contrast raglan sleeve, henley placket.",
+    description: "Slim-fitting style, breathable premium cotton.",
     category: "men's clothing",
-    image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
     rating: { rate: 4.1, count: 259 }
   },
   {
     id: 3,
-    title: "Essential Cotton Jacket",
-    price: 55.99,
+    title: "Essential Leather Jacket",
+    price: 155.99,
     description: "Great outerwear jackets for Spring/Autumn/Winter.",
     category: "men's clothing",
-    image: "https://fakestoreapi.com/img/71li-ujtl-L._AC_UX679_.jpg",
+    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
     rating: { rate: 4.7, count: 500 }
   },
   {
@@ -53,7 +53,7 @@ const fallbackProducts = [
     price: 168.00,
     description: "Satisfaction Guaranteed. Return or exchange any order.",
     category: "jewelery",
-    image: "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
+    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800",
     rating: { rate: 3.9, count: 70 }
   }
 ];

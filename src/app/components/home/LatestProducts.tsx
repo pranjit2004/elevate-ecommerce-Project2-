@@ -7,17 +7,69 @@ interface Product {
   id: number;
   title: string;
   price: number;
+  description: string;
   category: string;
   image: string;
-  rating: { rate: number };
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
 
-async function getLatestProducts(): Promise<Product[]> {
-  const res = await fetch('https://fakestoreapi.com/products?limit=4', {
-    next: { revalidate: 3600 } 
-  });
-  if (!res.ok) return [];
-  return res.json();
+const fallbackProducts: Product[] = [
+  {
+    id: 1,
+    title: "Premium Canvas Backpack",
+    price: 109.95,
+    description: "Your perfect pack for everyday use and walks in the forest.",
+    category: "men's clothing",
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=800",
+    rating: { rate: 3.9, count: 120 }
+  },
+  {
+    id: 2,
+    title: "Minimalist Casual T-Shirt",
+    price: 22.3,
+    description: "Slim-fitting style, breathable premium cotton.",
+    category: "men's clothing",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
+    rating: { rate: 4.1, count: 259 }
+  },
+  {
+    id: 3,
+    title: "Essential Leather Jacket",
+    price: 155.99,
+    description: "Great outerwear jackets for Spring/Autumn/Winter.",
+    category: "men's clothing",
+    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
+    rating: { rate: 4.7, count: 500 }
+  },
+  {
+    id: 4,
+    title: "Solid Gold Petite Micropave",
+    price: 168.00,
+    description: "Satisfaction Guaranteed. Return or exchange any order.",
+    category: "jewelery",
+    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800",
+    rating: { rate: 3.9, count: 70 }
+  }
+];
+
+
+async function getLatestProducts() {
+  try {
+    const res = await fetch('https://fakestoreapi.com/products?limit=4', { 
+      cache: 'no-store' 
+    });
+    
+    if (!res.ok) {
+      return fallbackProducts;
+    }
+    
+    return res.json();
+  } catch (error) {
+    return fallbackProducts;
+  }
 }
 
 export default async function LatestProducts() {
@@ -46,7 +98,7 @@ export default async function LatestProducts() {
 
         {/* Product Grid - Staggered Scroll Reveal */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product, index) => (
+          {products.map((product: Product, index: number) => (
             // We multiply the index by 0.15 to stagger the animations!
             <ScrollReveal key={product.id} delay={0.15 * index}>
               <Link 
