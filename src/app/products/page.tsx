@@ -23,7 +23,7 @@ async function getProducts(): Promise<Product[]> {
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
+    return []; // Safely return an empty array instead of crashing
   }
 
   return res.json();

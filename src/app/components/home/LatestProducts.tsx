@@ -60,7 +60,7 @@ export default async function LatestProducts() {
                     className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 mix-blend-multiply dark:mix-blend-normal"
                   />
                 </div>
-                <div className="flex flex-col space-y-2 flex-grow">
+                <div className="flex flex-col space-y-2 grow">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium uppercase tracking-wider text-neutral-500">{product.category}</span>
                     <div className="flex items-center gap-1 text-sm font-medium text-neutral-700 dark:text-neutral-300">
