@@ -1,88 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { Star } from 'lucide-react';
+import { Star } from 'lucide-react'; // <-- Added the missing Star icon
+import { products, Product } from '@/data/products'; // <-- Importing your central data!
 
-
-
-// 1. Define the TypeScript Interface based on the Fake Store API response
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-}
-
-// 1. Create a bulletproof fallback array
-const fallbackProducts = [
-  {
-    id: 1,
-    title: "Premium Canvas Backpack",
-    price: 109.95,
-    description: "Your perfect pack for everyday use and walks in the forest.",
-    category: "men's clothing",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=800",
-    rating: { rate: 3.9, count: 120 }
-  },
-  {
-    id: 2,
-    title: "Minimalist Casual T-Shirt",
-    price: 22.3,
-    description: "Slim-fitting style, breathable premium cotton.",
-    category: "men's clothing",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
-    rating: { rate: 4.1, count: 259 }
-  },
-  {
-    id: 3,
-    title: "Essential Leather Jacket",
-    price: 155.99,
-    description: "Great outerwear jackets for Spring/Autumn/Winter.",
-    category: "men's clothing",
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
-    rating: { rate: 4.7, count: 500 }
-  },
-  {
-    id: 4,
-    title: "Solid Gold Petite Micropave",
-    price: 168.00,
-    description: "Satisfaction Guaranteed. Return or exchange any order.",
-    category: "jewelery",
-    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800",
-    rating: { rate: 3.9, count: 70 }
-  }
-];
-
-// 2. The new robust fetch function
-async function getProducts() {
-  try {
-    // Adding { cache: 'no-store' } tells Next.js NOT to save the empty array forever!
-    const res = await fetch('https://fakestoreapi.com/products', { 
-      cache: 'no-store' 
-    });
-    
-    // If the API throws a tantrum, use our fallback data
-    if (!res.ok) {
-      return fallbackProducts;
-    }
-    
-    return res.json();
-  } catch (error) {
-    // If the API completely times out, use our fallback data
-    return fallbackProducts;
-  }
-}
-
-// 3. The Page Component MUST be async to await the data
-export default async function ProductServerPage() {
-  // Fetch the data directly in the component!
-  const products = await getProducts();
-
+export default function ProductServerPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 selection:bg-neutral-200 dark:selection:bg-neutral-800 pb-24">
       
@@ -107,12 +28,10 @@ export default async function ProductServerPage() {
             >
               {/* Image Container */}
               <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-white border border-neutral-100 dark:border-neutral-800 p-6 mb-4 transition-all duration-300 group-hover:shadow-lg dark:bg-neutral-900/50">
-                {/* Note: We use standard <img> here for simplicity with external APIs.
-                  To use Next.js <Image>, you must configure remotePatterns in next.config.ts 
-                */}
                 <img 
                   src={product.image} 
                   alt={product.title}
+                  loading="lazy"
                   className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 mix-blend-multiply dark:mix-blend-normal"
                 />
               </div>

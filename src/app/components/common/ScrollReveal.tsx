@@ -1,15 +1,19 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
   delay?: number;
-  direction?: 'up' | 'down' | 'left' | 'right';
+  direction?: "up" | "down" | "left" | "right";
 }
 
-export default function ScrollReveal({ children, delay = 0, direction = 'up' }: ScrollRevealProps) {
+export default function ScrollReveal({
+  children,
+  delay = 0,
+  direction = "up",
+}: ScrollRevealProps) {
   // Define where the element starts based on direction
   const directions = {
     up: { y: 40, x: 0 },
@@ -20,18 +24,18 @@ export default function ScrollReveal({ children, delay = 0, direction = 'up' }: 
 
   return (
     <motion.div
-      initial={{ 
-        opacity: 0, 
-        ...directions[direction] 
+      initial={{
+        opacity: 0,
+        ...directions[direction],
       }}
-      whileInView={{ 
-        opacity: 1, 
-        x: 0, 
-        y: 0 
+      whileInView={{
+        opacity: 1,
+        x: 0,
+        y: 0,
       }}
-      viewport={{ 
+      viewport={{
         once: true, // Only animate once when scrolling down
-        margin: "-50px" // Trigger slightly before it hits the viewport
+        margin: "-50px", // Trigger slightly before it hits the viewport
       }}
       transition={{
         duration: 0.7,
