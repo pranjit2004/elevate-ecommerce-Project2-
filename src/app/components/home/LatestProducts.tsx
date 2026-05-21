@@ -2,74 +2,60 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Star } from 'lucide-react'; // <-- Added Star here
-import { products, Product } from '@/data/products';
-import ScrollReveal from '../common/ScrollReveal'; // <-- Added ScrollReveal import
+import { Monitor, Gem, Shirt, ShoppingBag, ArrowRight } from 'lucide-react';
+import ScrollReveal from '../common/ScrollReveal';
+import { categories } from '@/data/catagories';
 
-// Removed "async" because our local data is instant!
-function getLatestProducts() {
-  return products.slice(0, 4); 
-}
 
-// Removed "async" here as well
-export default function LatestProducts() {
-  // Removed "await"
-  const latestProducts = getLatestProducts();
 
+export default function CategorySection() {
   return (
-    <div className="py-24 bg-white dark:bg-neutral-950 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="py-24 bg-neutral-950 overflow-hidden border-t border-neutral-900">
+      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12">
         
-        {/* Section Header with Scroll Reveal */}
+        {/* Section Header */}
         <ScrollReveal delay={0.1}>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
             <div>
-              <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">New Arrivals</h2>
-              <p className="text-neutral-500 dark:text-neutral-400">The latest additions to our premium collection.</p>
+              <h2 className="text-3xl font-bold text-white mb-2">Shop by Category</h2>
+              <p className="text-neutral-400">Find exactly what you're looking for.</p>
             </div>
             <Link 
               href="/products" 
-              className="group flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-white hover:opacity-70 transition-opacity"
+              className="group flex items-center gap-2 text-sm font-semibold text-white hover:text-neutral-300 transition-colors"
             >
-              View all products 
+              Browse all categories 
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </ScrollReveal>
 
-        {/* Product Grid - Staggered Scroll Reveal */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {latestProducts.map((product: Product, index: number) => (
-            <ScrollReveal key={product.id} delay={0.15 * index}>
-              <Link 
-                href={`/products/${product.id}`}
-                className="group flex flex-col cursor-pointer h-full"
-              >
-                <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-white border border-neutral-100 dark:border-neutral-800 p-6 mb-4 transition-all duration-300 group-hover:shadow-lg dark:bg-neutral-900/50">
-                  <img 
-                    src={product.image} 
-                    alt={product.title}
-                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 mix-blend-multiply dark:mix-blend-normal"
-                  />
-                </div>
-                <div className="flex flex-col space-y-2 grow">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium uppercase tracking-wider text-neutral-500">{product.category}</span>
-                    <div className="flex items-center gap-1 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                      <Star className="h-3.5 w-3.5 fill-black dark:fill-white text-black dark:text-white" />
-                      {product.rating.rate}
-                    </div>
+        {/* Category Grid */}
+        <ScrollReveal delay={0.2}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((category) => {
+              const Icon = category.icon;
+              return (
+                <Link 
+                  key={category.id}
+                  href={`/products#${category.id}`}
+                  className="group relative flex flex-col p-8 rounded-3xl bg-neutral-900/50 border border-neutral-800 transition-all duration-300 hover:bg-neutral-800/80 hover:border-neutral-700"
+                >
+                  <div className="mb-6 inline-flex p-4 rounded-2xl bg-black text-white transition-transform duration-300 group-hover:scale-110">
+                    <Icon className="h-8 w-8" />
                   </div>
-                  <h3 className="text-sm font-semibold text-neutral-900 dark:text-white line-clamp-2 leading-snug group-hover:underline underline-offset-4 decoration-neutral-300">{product.title}</h3>
-                  <div className="mt-auto pt-2">
-                    <span className="text-lg font-bold text-neutral-900 dark:text-white">${product.price.toFixed(2)}</span>
+                  <h3 className="text-xl font-bold text-white mb-2">{category.name}</h3>
+                  <p className="text-sm text-neutral-400 mb-8 flex-grow">{category.description}</p>
+                  
+                  <div className="mt-auto flex items-center font-semibold text-sm text-white">
+                    <span className="group-hover:mr-2 transition-all duration-300 text-neutral-300 group-hover:text-white">Explore</span>
+                    <ArrowRight className="h-4 w-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                   </div>
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
-        </div>
-        
+                </Link>
+              );
+            })}
+          </div>
+        </ScrollReveal>
       </div>
     </div>
   );

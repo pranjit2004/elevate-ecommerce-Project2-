@@ -1,3 +1,18 @@
 @import "tailwindcss";
 
 
+@keyframes scroll-right-to-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-33.3333%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll-right-to-left 40s linear infinite;
+}
+
+/* Pause the animation when the user hovers over the products */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
