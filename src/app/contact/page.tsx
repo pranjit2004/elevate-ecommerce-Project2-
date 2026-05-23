@@ -54,7 +54,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-neutral-900 dark:text-white">Email</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 mt-1">Our friendly team is here to help.</p>
-                    <a href="mailto:hello@elevate.com" className="font-medium text-black dark:text-white mt-2 inline-block hover:underline">
+                    <a href="#" className="font-medium text-black dark:text-white mt-2 inline-block hover:underline">
                       hello@elevate.com
                     </a>
                   </div>
@@ -68,8 +68,8 @@ export default function ContactPage() {
                     <h3 className="font-semibold text-neutral-900 dark:text-white">Office</h3>
                     <p className="text-neutral-600 dark:text-neutral-400 mt-1">Come say hello at our headquarters.</p>
                     <p className="font-medium text-black dark:text-white mt-2">
-                      100 Innovation Drive<br />
-                      Tech District, CA 94103
+                      ABC<br />
+                      EFG
                     </p>
                   </div>
                 </div>
@@ -81,11 +81,11 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-neutral-900 dark:text-white">Developer Portfolio</h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 mt-1">This project was built by a specialized Frontend Developer.</p>
+                    <p className="text-neutral-600 dark:text-neutral-400 mt-1">This project was built by a Software Engineer.</p>
                     
-                    {/* CHANGE THIS LINK TO YOUR ACTUAL PORTFOLIO OR FIVERR URL */}
+                    
                     <a 
-                      href="#" 
+                      href="https://portfolio-pranjit.vercel.app/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="font-medium text-black dark:text-white mt-2 inline-flex items-center gap-1 hover:underline group"
